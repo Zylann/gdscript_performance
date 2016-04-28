@@ -13,6 +13,11 @@
 # If not, please set the ITERATIONS constant to higher values to reduce the margin.
 
 
+# TODO Output results in a JSON file so we can reload and compare them afterwards
+# TODO Add tests for complete algorithms such as primes, fibonacci etc
+# TODO Add tests on strings
+
+
 extends SceneTree
 
 const ITERATIONS = 500000
