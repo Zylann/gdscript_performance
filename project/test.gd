@@ -5,7 +5,9 @@
 # we can say that test A is 2x faster than test B.
 
 # All tests run a very long loop containing the code to profile,
-# in order to obtain a reasonable time information. Iteration count is the same for all tests.
+# in order to obtain a reasonable time information.
+# The cost of the loop itself is then subtracted to all tests.
+# Iteration count is the same for all tests.
 # There shouldn't be race conditions between loops.
 
 # Results will be approximate and vary between executions and CPU speed,
