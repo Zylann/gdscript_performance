@@ -110,9 +110,28 @@ func stop():
 		})
 	return time
 
+# Wow, polyfills in Godot Engine?
+static func get_engine_version():
+	if OS.has_method("get_engine_version"):
+		var version = OS.get_engine_version()
+		return version
+
+	else:
+		if EditorPlugin.new().has_method("add_control_to_bottom_panel"):
+			return {
+				major = "2",
+				minor = "1",
+				string = "2.1-beta (official)"
+			}
+		else:
+			return {
+				major = "2",
+				minor = "0",
+				string = "2.0 or before"
+			}
 
 func save_results():
-	var version = OS.get_engine_version()
+	var version = get_engine_version()
 	var file_path = RESULT_SAVE_DIRECTORY + version["string"] + ".json"
 	
 	var file = File.new()

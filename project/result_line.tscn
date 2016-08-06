@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://result_line.gd" type="Script" id=1]
+[ext_resource path="res://white.png" type="Texture" id=2]
+
+[node name="Control" type="Control"]
+
+anchor/right = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 16.0
+script/script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 128.0
+margin/bottom = 0.0
+text = "Sample result name"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="bar" type="Control" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 300.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="fill" type="TextureFrame" parent="bar"]
+
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 2.0
+margin/right = 100.0
+margin/bottom = 2.0
+texture = ExtResource( 2 )
+modulate = Color( 0.730469, 0.481978, 0.282486, 1 )
+expand = true
+stretch_mode = 0
+
+
