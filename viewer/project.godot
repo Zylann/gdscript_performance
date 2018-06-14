@@ -1,0 +1,25 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=3
+
+[application]
+
+config/name="Benchmark results viewer"
+run/main_scene="res://main.tscn"
+config/icon="res://icon.png"
+
+[gdnative]
+
+singletons=[  ]
+
+[rendering]
+
+quality/directional_shadow/size=512
+quality/shadow_atlas/size=512
+quality/reflections/atlas_size=512
