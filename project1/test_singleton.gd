@@ -38,6 +38,10 @@ func parse_cmd_args():
 		elif arg == "--noprint":
 			_verbose = false
 
+		elif arg == "--fastrun":
+			_base_iterations = 1000
+			print("Overriding to fast run")
+
 
 func begin_tests():
 	
