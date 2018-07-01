@@ -1,4 +1,4 @@
-GDScript performance tests
+Godot performance tests
 =============================
 
 This project contains a bunch of tests to measure Godot and GDScript performance for multiple engine versions at once.
@@ -8,7 +8,7 @@ Test categories
 
 There are two categories of tests:
 
-- Micro benchmarks: these are run in batches and measure how fast GDScript performs specific operations. For example, how long it takes to assign a dictionary element.
+- Micro benchmarks: these are run in batches and measure how fast GDScript performs specific operations. They are purely time-based and their results are in microseconds. For example, how long it takes to assign a dictionary element.
 
 - Scale benchmarks: these are run individually. They measure speed and memory for a given metric over time. For example, how many bunnies can Godot render before getting under 15 fps.
 
