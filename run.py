@@ -110,7 +110,7 @@ def run_micro_benchmarks(version, godot_exe_name):
         os.remove(LAST_RESULTS_FILE)
 
     args = [godot_exe_fullpath, "--iterations=" + str(ITERATIONS)]
-    if not VERBOSE:
+    if not VERBOSE or FASTRUN:
         args.append("--noprint")
     if FASTRUN:
         args.append("--fastrun")
@@ -154,6 +154,8 @@ def run_scale_benchmarks(version, godot_exe_name):
 
         args = [godot_exe_fullpath, os.path.join("scale_benchmarks", benchmark_dir, "main.tscn")]
 
+        if not VERBOSE or FASTRUN:
+            args.append("--noprint")
         if FASTRUN:
             args.append("--fastrun")
 
