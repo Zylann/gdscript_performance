@@ -107,6 +107,9 @@ func execute_micro_benchmarks():
 		test.ITERATIONS = _base_iterations
 		test.tree_root = self
 		
+		if _verbose:
+			print(test.description, "...")
+
 		test.setup()
 		
 		_start(test_name, test.description)
@@ -138,7 +141,7 @@ func _stop(subtract_loop_duration, iterations):
 			test_time_usec -= _for_time_usec
 		
 		if _verbose:
-			print(_test_description, ": ", str(test_time_usec), "us (", iterations, " iterations)")
+			print("    ", str(test_time_usec), "us (", iterations, " iterations)")
 		
 		_test_results.append({
 			name = _test_name,
