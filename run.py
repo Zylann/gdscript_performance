@@ -9,40 +9,40 @@ ITERATIONS = 1000000
 VERBOSE = False
 
 VERSIONS = [
-    { "v": [1, 1], "x": "Godot_v1.1_stable_win64.exe" },
+    { "v": [1, 1], "x": "Godot_v1.1_stable_win64" },
 
-    { "v": [2, 0, 0], "x": "godot_2_0_0.exe" },
-    { "v": [2, 0, 2], "x": "godot_2_0_2.exe" },
-    { "v": [2, 0, 3], "x": "godot_2_0_3.exe" },
-    { "v": [2, 0, 4, 1], "x": "Godot_v2.0.4.1_stable_win64.exe" },
-    { "v": [2, 0, 4], "x": "Godot_v2.0.4_stable_win64.exe" },
+    { "v": [2, 0, 0], "x": "godot_2_0_0" },
+    { "v": [2, 0, 2], "x": "godot_2_0_2" },
+    { "v": [2, 0, 3], "x": "godot_2_0_3" },
+    { "v": [2, 0, 4, 1], "x": "Godot_v2.0.4.1_stable_win64" },
+    { "v": [2, 0, 4], "x": "Godot_v2.0.4_stable_win64" },
 
-    { "v": [2, 1], "x": "Godot_v2.1_beta_20160712_win64.exe" },
-    { "v": [2, 1], "x": "Godot_v2.1_rc1_win64.exe" },
-    { "v": [2, 1], "x": "Godot_v2.1_rc2_win64.exe" },
-    { "v": [2, 1], "x": "Godot_v2.1-stable_win64.exe" },
-    { "v": [2, 1, 1], "x": "Godot_v2.1.1-stable_win64.exe" },
-    { "v": [2, 1, 2], "x": "Godot_v2.1.2-stable_win64.exe" },
-    { "v": [2, 1, 3], "x": "Godot_v2.1.3-stable_win64.exe" },
-    { "v": [2, 1, 4], "x": "Godot_v2.1.4-beta_20170625_win64.exe" },
-    { "v": [2, 1, 4], "x": "Godot_v2.1.4-beta_20170731_win64.exe" },
-    { "v": [2, 1, 4], "x": "Godot_v2.1.4-stable_win64.exe" },
+    { "v": [2, 1], "x": "Godot_v2.1_beta_20160712_win64" },
+    { "v": [2, 1], "x": "Godot_v2.1_rc1_win64" },
+    { "v": [2, 1], "x": "Godot_v2.1_rc2_win64" },
+    { "v": [2, 1], "x": "Godot_v2.1-stable_win64" },
+    { "v": [2, 1, 1], "x": "Godot_v2.1.1-stable_win64" },
+    { "v": [2, 1, 2], "x": "Godot_v2.1.2-stable_win64" },
+    { "v": [2, 1, 3], "x": "Godot_v2.1.3-stable_win64" },
+    { "v": [2, 1, 4], "x": "Godot_v2.1.4-beta_20170625_win64" },
+    { "v": [2, 1, 4], "x": "Godot_v2.1.4-beta_20170731_win64" },
+    { "v": [2, 1, 4], "x": "Godot_v2.1.4-stable_win64" },
 
-    { "v": [3, 0], "x": "Godot_v3.0-alpha1_win64.exe" },
-    { "v": [3, 0], "x": "Godot_v3.0-alpha2_win64.exe" },
-    { "v": [3, 0], "x": "Godot_v3.0-beta1_win64.exe" },
-    { "v": [3, 0], "x": "Godot_v3.0-beta2_win64.exe" },
-    { "v": [3, 0], "x": "Godot_v3.0-rc1_win64.exe" },
-    { "v": [3, 0], "x": "Godot_v3.0-rc2_win64.exe" },
-    { "v": [3, 0], "x": "Godot_v3.0-rc3_win64.exe" },
-    { "v": [3, 0], "x": "Godot_v3.0-stable_win64.exe" },
-    { "v": [3, 0, 1], "x": "Godot_v3.0.1-rc1_win64.exe"},
-    { "v": [3, 0, 1], "x": "Godot_v3.0.1-stable_win64.exe"},
-    { "v": [3, 0, 2], "x": "Godot_v3.0.2-stable_win64.exe"},
-    { "v": [3, 0, 3], "x": "Godot_v3.0.3-rc1_win64.exe"},
-    { "v": [3, 0, 3], "x": "Godot_v3.0.3-rc3_win64.exe"},
-    { "v": [3, 0, 3], "x": "Godot_v3.0.3-stable_win64.exe"},
-    { "v": [3, 0, 4], "x": "Godot_v3.0.4-stable_win64.exe"}
+    { "v": [3, 0], "x": "Godot_v3.0-alpha1_win64" },
+    { "v": [3, 0], "x": "Godot_v3.0-alpha2_win64" },
+    { "v": [3, 0], "x": "Godot_v3.0-beta1_win64" },
+    { "v": [3, 0], "x": "Godot_v3.0-beta2_win64" },
+    { "v": [3, 0], "x": "Godot_v3.0-rc1_win64" },
+    { "v": [3, 0], "x": "Godot_v3.0-rc2_win64" },
+    { "v": [3, 0], "x": "Godot_v3.0-rc3_win64" },
+    { "v": [3, 0], "x": "Godot_v3.0-stable_win64" },
+    { "v": [3, 0, 1], "x": "Godot_v3.0.1-rc1_win64"},
+    { "v": [3, 0, 1], "x": "Godot_v3.0.1-stable_win64"},
+    { "v": [3, 0, 2], "x": "Godot_v3.0.2-stable_win64"},
+    { "v": [3, 0, 3], "x": "Godot_v3.0.3-rc1_win64"},
+    { "v": [3, 0, 3], "x": "Godot_v3.0.3-rc3_win64"},
+    { "v": [3, 0, 3], "x": "Godot_v3.0.3-stable_win64"},
+    { "v": [3, 0, 4], "x": "Godot_v3.0.4-stable_win64"}
 ]
 
 
@@ -63,17 +63,26 @@ def main():
 def check_paths():
     ok = True
     for version_info in VERSIONS:
-        path = os.path.join(GODOT_BINARIES_FOLDER, version_info["x"])
+        path = get_runnable_path(version_info["x"])
         if not os.path.isfile(path):
             print("ERROR: path", path, "doesn't exist")
             ok = False
     return ok
 
 
+def get_runnable_path(godot_exe_name):
+    return os.path.join(GODOT_BINARIES_FOLDER, godot_exe_name) + "." + get_runnable_extension()
+
+
+def get_runnable_extension():
+    # TODO Detect platform
+    return "exe"
+
+
 def test_version(version, godot_exe_name):
 
     print("Running ", godot_exe_name, "...")
-    godot_exe_fullpath = os.path.join(GODOT_BINARIES_FOLDER, godot_exe_name)
+    godot_exe_fullpath = get_runnable_path(godot_exe_name)
 
     if os.path.isfile(LAST_RESULTS_FILE):
         os.remove(LAST_RESULTS_FILE)
