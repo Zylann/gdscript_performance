@@ -1,6 +1,6 @@
 extends "test.gd"
 
-var description = "String concat with 1 number"
+var description = "String concat with 10 numbers"
 
 
 func execute():
