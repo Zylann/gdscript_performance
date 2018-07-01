@@ -123,8 +123,7 @@ def run_micro_benchmarks(version, godot_exe_name):
     if not os.path.isfile(LAST_RESULTS_FILE):
         print("Something went wrong with the results.")
     else:
-        godot_name = os.path.splitext(godot_exe_name)[0]
-        shutil.copyfile(LAST_RESULTS_FILE, "results/" + godot_name + ".json")
+        shutil.copyfile(LAST_RESULTS_FILE, "results/" + godot_exe_name + ".json")
         # TODO Remove last results file! That should be a rename
 
 
