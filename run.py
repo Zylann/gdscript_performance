@@ -12,8 +12,9 @@ ITERATIONS = 1000000
 # This makes results irrelevant, but it allows to test if they all run correctly at all.
 FASTRUN = False
 
-# Set this to true to have tests print more stuff (but results are saved anyways)
-VERBOSE = False
+# Set this to true to have tests print more stuff.
+# This is nice to see more details about running tests (but results are saved anyways)
+VERBOSE = True
 
 # Set this to true to run micro benchmarks
 RUN_MICRO_BENCHMARKS = True
