@@ -7,6 +7,11 @@ func can_run(context):
 	return v != "1" and v != "2"
 
 
+func setup():
+	# This test takes long
+	ITERATIONS /= 5
+
+
 func execute():
 	var a = 42
 	for i in range(0, ITERATIONS):

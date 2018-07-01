@@ -2,8 +2,7 @@
 extends Node
 
 func _ready():
-	var s = preload("res://test_singleton.gd").new()
+	var s = load("res://test_singleton.gd").new()
+	add_child(s)
 	s.begin_tests()
 	get_tree().quit()
-
-

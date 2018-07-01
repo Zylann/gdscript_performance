@@ -1,6 +1,7 @@
 
 # Set by the main test script
 var ITERATIONS = null
+var tree_root = null
 
 # var description = "Test base class"
 
@@ -11,6 +12,11 @@ func can_run(context):
 func should_subtract_loop_duration():
 	return true
 
-#func execute():
-#	pass
+
+func setup():
+	pass
+
+
+func execute():
+	pass
 

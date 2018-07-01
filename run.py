@@ -4,6 +4,9 @@ import shutil
 
 GODOT_BINARIES_FOLDER = "D:/PROJETS/INFO/GODOT/bin"
 LAST_RESULTS_FILE = "results/last_results.json"
+ITERATIONS = 1000000
+#ITERATIONS = 1000
+VERBOSE = False
 
 VERSIONS = [
     { "v": [1, 1], "x": "Godot_v1.1_stable_win64.exe" },
@@ -38,7 +41,8 @@ VERSIONS = [
     { "v": [3, 0, 2], "x": "Godot_v3.0.2-stable_win64.exe"},
     { "v": [3, 0, 3], "x": "Godot_v3.0.3-rc1_win64.exe"},
     { "v": [3, 0, 3], "x": "Godot_v3.0.3-rc3_win64.exe"},
-    { "v": [3, 0, 3], "x": "Godot_v3.0.3-stable_win64.exe"}
+    { "v": [3, 0, 3], "x": "Godot_v3.0.3-stable_win64.exe"},
+    { "v": [3, 0, 4], "x": "Godot_v3.0.4-stable_win64.exe"}
 ]
 
 
@@ -68,13 +72,18 @@ def check_paths():
 
 def test_version(version, godot_exe_name):
 
+    print("Running ", godot_exe_name, "...")
     godot_exe_fullpath = os.path.join(GODOT_BINARIES_FOLDER, godot_exe_name)
 
     if os.path.isfile(LAST_RESULTS_FILE):
         os.remove(LAST_RESULTS_FILE)
 
+    args = [godot_exe_fullpath, "--iterations=" + str(ITERATIONS)]
+    if not VERBOSE:
+        args.append("--noprint")
+
     os.chdir("project" + str(version[0]))
-    subprocess.run([godot_exe_fullpath])
+    subprocess.run(args)
     os.chdir("..")
 
     print("")
@@ -83,6 +92,7 @@ def test_version(version, godot_exe_name):
     else:
         godot_name = os.path.splitext(godot_exe_name)[0]
         shutil.copyfile(LAST_RESULTS_FILE, "results/" + godot_name + ".json")
+        # TODO Remove last results file! That should be a rename
 
 
 main()

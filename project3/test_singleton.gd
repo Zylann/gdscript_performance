@@ -1,71 +1,83 @@
-# This script prints how much time GDScript takes to performs specific instructions.
 
-# Times values are in arbitrary units but share the same scale,
-# so for example if test A prints 100 and test B prints 200,
-# we can say that test A is 2x faster than test B.
+# This script runs tests in series and writes their result in a JSON file.
+# Time measurements are in microseconds and may vary with CPU speed.
 
-# All tests run a very long loop containing the code to profile,
-# in order to obtain a reasonable time information.
-# The cost of the loop itself is then subtracted to all tests.
-# Iteration count is the same for all tests.
-# There shouldn't be race conditions between loops.
+# Please note that this script is written in a way to be compatible with all Godot versions,
+# so it can be safely copy/pasted for all test projects.
+# Functions that differ are put in polyfills.gd.
 
-# Results will be approximate and vary between executions and CPU speed,
-# but the error margin should be low enough to make conclusions on most tests.
-# If not, please set the ITERATIONS constant to higher values to reduce the margin.
-
-
-# TODO Output results in a JSON file so we can reload and compare them afterwards
 # TODO Add tests for complete algorithms such as primes, fibonacci etc
 
-tool
 extends Node
 
-var ITERATIONS = 1000000 # var because it is used to estimate loop time the same way tests do
 const RESULT_SAVE_DIRECTORY = "../results/"
 const RESULT_FILE_NAME = "last_results.json"
 
 var TestBase = load("tests/test.gd")
 
 var _time_before = 0
-var _for_time = 0
+var _for_time_usec = 0.0
 var _test_name = ""
 var _test_description = ""
 var _test_results = []
+var _base_iterations = 1000000
+var _verbose = true
 
 var polyfills = null
 
 
+func parse_cmd_args():
+
+	var args = OS.get_cmdline_args()
+	for arg in args:
+		
+		if arg.begins_with("--iterations="):
+			_base_iterations = arg.to_int()
+			print("Overriding base iterations: ", _base_iterations)
+
+		elif arg == "--noprint":
+			_verbose = false
+
+
 func begin_tests():
 	
-	# TODO Load different polyfills depending on Godot version
 	polyfills = load("polyfills.gd")
+
+	parse_cmd_args()
 	
-	print("-------------------")
+	if _verbose:
+		print("-------------------")
+		print("The following times are in microseconds, for one occurence of a test.")
+		print("")
+
+	_calculate_for_time()
 	
-	# Tests all use a for loop to execute their operation many times,
-	# so we estimate the cost of that loop in order to subtract it from test results
-	_time_before = polyfills.get_time_msec()
-	for i in range(0, ITERATIONS):
-		pass
-	_for_time = polyfills.get_time_msec() - _time_before
-	print("For time: " + str(_for_time))
+	print("Running micro benchmarks...")
+	execute_micro_benchmarks()
 	
-	print("")
-	print("The following times are in seconds for the whole test.")
-	print("")
-	
-	execute_filebased_tests()
-	
-	print("-------------------")
-	
-	print("Saving results...")
+	if _verbose:
+		print("-------------------")
+		print("Saving results...")
+
 	save_results()
 	
 	print("Done.")
 
 
-func execute_filebased_tests():
+func _calculate_for_time():
+	# Tests all use a for loop to execute their operation many times,
+	# so we estimate the cost of that loop in order to subtract it from test results
+	_time_before = polyfills.get_time_msec()
+	for i in range(0, _base_iterations):
+		pass
+	var for_time = polyfills.get_time_msec() - _time_before
+	var k = 1000.0 / float(_base_iterations)
+	_for_time_usec = k * float(for_time)
+	if _verbose:
+		print("For time: " + str(_for_time_usec), "us")
+
+
+func execute_micro_benchmarks():
 
 	var dir = "res://tests"
 	var tests = get_file_list(dir, "gd")
@@ -87,15 +99,20 @@ func execute_filebased_tests():
 		if not polyfills.is_instance_of(test, TestBase):
 			print("Wut, test doesn't inherit base? ", test_name)
 			continue
-			
-		#if not test.can_run(context):
-		#	continue
 
-		test.ITERATIONS = ITERATIONS
+		test.ITERATIONS = _base_iterations
+		test.tree_root = self
+		
+		test.setup()
 		
 		_start(test_name, test.description)
 		test.execute()
-		_stop(test.should_subtract_loop_duration())
+		_stop(test.should_subtract_loop_duration(), test.ITERATIONS)
+		
+		while get_child_count() != 0:
+			var child = get_child(get_child_count() - 1)
+			remove_child(child)
+			child.free()
 
 
 func _start(test_name="", desc=""):
@@ -105,21 +122,24 @@ func _start(test_name="", desc=""):
 	_time_before = polyfills.get_time_msec()
 
 
-func _stop(subtract_loop_duration=true):
+func _stop(subtract_loop_duration, iterations):
 
 	var time = polyfills.get_time_msec() - _time_before
 	if _test_name.length() != 0:
-		var test_time = time
+		
+		var k = 1000.0 / float(iterations)
+		var test_time_usec = float(time) * k
 		
 		if subtract_loop_duration:
-			test_time -= _for_time
+			test_time_usec -= _for_time_usec
 		
-		print(_test_description + ": " + str(test_time))# + " (with for: " + str(time) + ")")
+		if _verbose:
+			print(_test_description, ": ", str(test_time_usec), "us (", iterations, " iterations)")
 		
 		_test_results.append({
 			name = _test_name,
 			description = _test_description,
-			time = test_time
+			time = test_time_usec,
 		})
 
 
@@ -138,11 +158,11 @@ func save_results():
 		return
 	
 	var d = { test_results = _test_results }
-	file.store_line(to_json(d))
+	file.store_line(polyfills.convert_to_json(d))
 	file.close()
 
 
-static func get_file_list(dir_path, exts):
+func get_file_list(dir_path, exts):
 	if typeof(exts) == TYPE_STRING:
 		exts = [exts]
 	var dir = Directory.new()
@@ -157,7 +177,7 @@ static func get_file_list(dir_path, exts):
 		if file == "":
 			break
 		if not dir.current_is_dir():
-			var file_ext = file.get_extension()
+			var file_ext = polyfills.get_extension(file)
 			for ext in exts:
 				if ext == file_ext:
 					list.append(file)
