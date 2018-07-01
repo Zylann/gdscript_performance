@@ -132,6 +132,11 @@ def run_scale_benchmarks(version, godot_exe_name):
 
     os.chdir("project" + str(version[0]))
 
+    if not os.path.isdir("scale_benchmarks"):
+        print("No scale benchmarks for that version of Godot")
+        os.chdir("..")
+        return
+
     benchmark_dirs = filter(lambda x: os.path.isdir(os.path.join("scale_benchmarks", x)), os.listdir("scale_benchmarks"))
 
     if SINGLE_SCALE_BENCHMARK != "":
