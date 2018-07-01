@@ -12,6 +12,10 @@ There are two categories of tests:
 
 - Scale benchmarks: these are run individually. They measure speed and memory for a given metric over time. For example, how many bunnies can Godot render before getting under 15 fps.
 
+You will also notice there are 3 projects which contain almost identical tests.
+This is because major versions of Godot introduce big compatibility changes, and trying to keep the same project for all is a hassle.
+However, some scripts can be copied more safely because Godot differences are centralized into a `polyfills.gd` script, which wraps functions.
+
 
 Running tests
 ---------------
