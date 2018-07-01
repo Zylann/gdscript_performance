@@ -4,10 +4,27 @@ import shutil
 
 GODOT_BINARIES_FOLDER = "D:/PROJETS/INFO/GODOT/bin"
 LAST_RESULTS_FILE = "results/last_results.json"
+
+# Higher value increases precision of micro benchmarks but makes them slower to complete
 ITERATIONS = 1000000
-#ITERATIONS = 1000
+
+# Set this to true so all tests will complete very fast.
+# This makes results irrelevant, but it allows to test if they all run correctly at all.
+FASTRUN = False
+
+# Set this to true to have tests print more stuff (but results are saved anyways)
 VERBOSE = False
 
+# Set this to true to run micro benchmarks
+RUN_MICRO_BENCHMARKS = True
+
+# Set this to true to run scale benchmarks
+RUN_SCALE_BENCHMARKS = False
+
+# Set this to the name of a scale benchmark to run only that one
+SINGLE_SCALE_BENCHMARK = ""#"sprite_spam"
+
+# Info about all Godot executables by version
 VERSIONS = [
     { "v": [1, 1], "x": "Godot_v1.1_stable_win64" },
 
@@ -52,11 +69,17 @@ def main():
         return
 
     versions = VERSIONS #[{ "v": [3, 0], "x": "Godot_v3.0-stable_win64.exe" }]
-    for version_info in versions:
-        v = version_info["v"]
-        # if not (v[0] == 2 and v[1] == 0 and len(v) == 3 and v[2] == 0):
-        #     continue
-        test_version(v, version_info["x"])
+
+    if RUN_MICRO_BENCHMARKS:
+        for info in versions:
+            print("Running ", info["x"], "...")
+            run_micro_benchmarks(info["v"], info["x"])
+
+    if RUN_SCALE_BENCHMARKS:
+        for info in versions:
+            print("Running ", info["x"], "...")
+            run_scale_benchmarks(info["v"], info["x"])
+
     print("Done")
 
 
@@ -79,9 +102,7 @@ def get_runnable_extension():
     return "exe"
 
 
-def test_version(version, godot_exe_name):
-
-    print("Running ", godot_exe_name, "...")
+def run_micro_benchmarks(version, godot_exe_name):
     godot_exe_fullpath = get_runnable_path(godot_exe_name)
 
     if os.path.isfile(LAST_RESULTS_FILE):
@@ -90,6 +111,8 @@ def test_version(version, godot_exe_name):
     args = [godot_exe_fullpath, "--iterations=" + str(ITERATIONS)]
     if not VERBOSE:
         args.append("--noprint")
+    if FASTRUN:
+        args.append("--fastrun")
 
     os.chdir("project" + str(version[0]))
     subprocess.run(args)
@@ -102,6 +125,39 @@ def test_version(version, godot_exe_name):
         godot_name = os.path.splitext(godot_exe_name)[0]
         shutil.copyfile(LAST_RESULTS_FILE, "results/" + godot_name + ".json")
         # TODO Remove last results file! That should be a rename
+
+
+def run_scale_benchmarks(version, godot_exe_name):
+    godot_exe_fullpath = get_runnable_path(godot_exe_name)
+
+    os.chdir("project" + str(version[0]))
+
+    benchmark_dirs = filter(lambda x: os.path.isdir(os.path.join("scale_benchmarks", x)), os.listdir("scale_benchmarks"))
+
+    if SINGLE_SCALE_BENCHMARK != "":
+        for d in benchmark_dirs:
+            if d == SINGLE_SCALE_BENCHMARK:
+                benchmark_dirs = [d]
+                break
+
+    for benchmark_dir in benchmark_dirs:
+        results_path = os.path.join("scale_benchmarks", benchmark_dir, "results.json")
+
+        if os.path.isfile(results_path):
+            os.remove(results_path)
+
+        args = [godot_exe_fullpath, os.path.join("scale_benchmarks", benchmark_dir, "main.tscn")]
+
+        if FASTRUN:
+            args.append("--fastrun")
+
+        subprocess.run(args)
+
+        print("")
+        if not os.path.isfile(results_path):
+            print("Something went wrong with the results.")
+
+    os.chdir("..")
 
 
 main()
