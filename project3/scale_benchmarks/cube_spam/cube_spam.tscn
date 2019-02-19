@@ -1,6 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scale_benchmarks/cube_spam/main.gd" type="Script" id=1]
+[ext_resource path="res://scale_benchmarks/cube_spam/cube_spam.gd" type="Script" id=1]
+
 
 [sub_resource type="ProceduralSky" id=1]
 

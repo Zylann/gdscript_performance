@@ -151,7 +151,8 @@ def run_scale_benchmarks(version, godot_exe_name):
         if os.path.isfile(results_path):
             os.remove(results_path)
 
-        args = [godot_exe_fullpath, os.path.join("scale_benchmarks", benchmark_dir, "main.tscn")]
+        scene_name = benchmark_dir + ".tscn"
+        args = [godot_exe_fullpath, os.path.join("scale_benchmarks", benchmark_dir, scene_name)]
 
         if not VERBOSE or FASTRUN:
             args.append("--noprint")

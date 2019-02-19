@@ -1,6 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scale_benchmarks/physics_spheres/main.gd" type="Script" id=1]
+[ext_resource path="res://scale_benchmarks/physics_spheres/physics_spheres.gd" type="Script" id=1]
+
 
 [sub_resource type="PlaneShape" id=1]
 
