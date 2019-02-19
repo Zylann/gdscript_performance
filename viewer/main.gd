@@ -5,23 +5,35 @@ const RESULTS_FOLDER = "../results"
 
 onready var _micro_benchmarks_viewer = get_node("Panel/TabContainer/MicroBenchmarks")
 onready var _scale_benchmarks_viewer = get_node("Panel/TabContainer/ScaleBenchmarks")
+onready var _loading_panel = get_node("Panel/Loading")
+onready var _loading_progress_bar = get_node("Panel/Loading/ProgressPanel/ProgressBar")
 
 
 func _ready():
+	_loading_panel.show()
+	_loading_progress_bar.ratio = 0
+	yield(get_tree(), "idle_frame")
+	
 	var filenames = get_file_list(RESULTS_FOLDER, "json")
 	var all_versions = {}
 	
-	for filename in filenames:
+	for i in len(filenames):
+		var filename = filenames[i]
 		
 		var fpath = RESULTS_FOLDER + "/" + filename
 		var res = load_json_file(fpath)
 		if res == null:
 			continue
+
+		_loading_progress_bar.ratio = float(i) / float(len(filenames))
+		yield(get_tree(), "idle_frame")
 		
 		all_versions[filename] = res
 	
 	_micro_benchmarks_viewer.load_data(all_versions)
 	_scale_benchmarks_viewer.load_data(all_versions)
+
+	_loading_panel.hide()
 	
 
 static func load_json_file(fpath):
