@@ -14,6 +14,10 @@ config/name="Benchmark results viewer"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1200
+
 [gdnative]
 
 singletons=[  ]
