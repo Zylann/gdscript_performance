@@ -105,7 +105,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 776.0
-margin_bottom = 564.0
+margin_bottom = 572.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -130,22 +130,39 @@ size_flags_vertical = 1
 script = ExtResource( 2 )
 line_color = Color( 1, 1, 0, 1 )
 
-[node name="GraphSettings" type="Control" parent="HSplitContainer/VBoxContainer" index="1"]
+[node name="SecondaryGraph" type="Control" parent="HSplitContainer/VBoxContainer/GraphArea" index="1"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 568.0
-margin_right = 776.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 0, 32 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+script = ExtResource( 2 )
+line_color = Color( 0, 0.695313, 1, 1 )
+
+[node name="GraphSettings" type="HBoxContainer" parent="HSplitContainer/VBoxContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 576.0
+margin_right = 776.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 24 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
 _sections_unfolded = [ "Rect" ]
 
 [node name="ModeSelector" type="OptionButton" parent="HSplitContainer/VBoxContainer/GraphSettings" index="0"]
@@ -155,7 +172,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 39.0
-margin_bottom = 20.0
+margin_bottom = 24.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -173,10 +190,82 @@ align = 0
 items = [  ]
 selected = -1
 
+[node name="ReferenceCheckbox" type="CheckBox" parent="HSplitContainer/VBoxContainer/GraphSettings" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 43.0
+margin_right = 128.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Compare"
+flat = false
+align = 0
+
+[node name="MainLabel" type="Label" parent="HSplitContainer/VBoxContainer/GraphSettings" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 132.0
+margin_top = 5.0
+margin_right = 152.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+text = "Ref"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
+
+[node name="SecondaryLabel" type="Label" parent="HSplitContainer/VBoxContainer/GraphSettings" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 156.0
+margin_top = 5.0
+margin_right = 176.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_colors/font_color = Color( 0, 0.694118, 1, 1 )
+text = "Ref"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
+
 [connection signal="item_selected" from="BenchmarkList" to="." method="_on_BenchmarkList_item_selected"]
 
 [connection signal="item_selected" from="HSplitContainer/VersionList" to="." method="_on_VersionList_item_selected"]
 
 [connection signal="item_selected" from="HSplitContainer/VBoxContainer/GraphSettings/ModeSelector" to="." method="_on_ModeSelector_item_selected"]
+
+[connection signal="toggled" from="HSplitContainer/VBoxContainer/GraphSettings/ReferenceCheckbox" to="." method="_on_ReferenceCheckbox_toggled"]
 
 

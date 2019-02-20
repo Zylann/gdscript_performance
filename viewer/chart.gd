@@ -12,9 +12,14 @@ func set_data(data):
 	_data = data
 
 
+func get_data():
+	return _data
+
+
 func scale_to_fit():
 	
 	if len(_data) != 0:
+		# TODO Have this as parameter maybe?
 		var xmin = 0.0#_data[0].x
 		var xmax = xmin
 		var ymin = 0.0#_data[0].y
@@ -47,7 +52,7 @@ func _update_transform():
 
 
 func get_window():
-	return _transform
+	return _window
 
 
 func set_window(win):

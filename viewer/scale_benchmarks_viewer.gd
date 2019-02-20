@@ -7,18 +7,25 @@ const MODE_DYNAMIC_MEMORY = 2
 onready var _benchmark_list = get_node("BenchmarkList")
 onready var _version_list = get_node("HSplitContainer/VersionList")
 onready var _chart = get_node("HSplitContainer/VBoxContainer/GraphArea/MainGraph")
+onready var _secondary_chart = get_node("HSplitContainer/VBoxContainer/GraphArea/SecondaryGraph")
 onready var _mode_selector = get_node("HSplitContainer/VBoxContainer/GraphSettings/ModeSelector")
+onready var _main_label = get_node("HSplitContainer/VBoxContainer/GraphSettings/MainLabel")
+onready var _secondary_label = get_node("HSplitContainer/VBoxContainer/GraphSettings/SecondaryLabel")
 
 var _data = {}
 var _current_benchmark = null
 var _current_version = null
 var _current_mode = MODE_FRAMETIME
+var _comparing_version = null
 
 
 func _ready():
 	_mode_selector.add_item("Frametime", MODE_FRAMETIME)
 	_mode_selector.add_item("Static Memory", MODE_STATIC_MEMORY)
 	_mode_selector.add_item("Dynamic Memory", MODE_DYNAMIC_MEMORY)
+	
+	_main_label.text = ""
+	_secondary_label.text = ""
 
 
 func load_data(all_versions):
@@ -68,21 +75,26 @@ func _on_BenchmarkList_item_selected(index):
 	
 	_current_benchmark = benchmark
 
+	_set_comparing_version(null)
+
 
 func _on_VersionList_item_selected(index):
 	assert(_current_benchmark != null)
 	_current_version = _version_list.get_item_metadata(index)
-	_update_graph_data()
-	
+	_main_label.text = _current_version
+	_update_graph_data(_chart, _current_version)
+	if _comparing_version == null:
+		_chart.scale_to_fit()
 
-func _update_graph_data():
+
+func _update_graph_data(chart, p_version):
 	
 	if _current_benchmark == null:
 		return
 	
 	var data
 	for version in _current_benchmark.versions:
-		if version.version == _current_version:
+		if version.version == p_version:
 			data = version
 	
 	var gdata = []
@@ -101,10 +113,40 @@ func _update_graph_data():
 		
 		gdata.append(Vector2(x, y))
 	
-	_chart.set_data(gdata)
-	_chart.scale_to_fit()
+	chart.set_data(gdata)
+	chart.update()
 
 
 func _on_ModeSelector_item_selected(ID):
 	_current_mode = ID
-	_update_graph_data()
+	
+	if _comparing_version != null:
+		_update_graph_data(_secondary_chart, _comparing_version)
+		_secondary_chart.scale_to_fit()
+	
+	_update_graph_data(_chart, _current_version)
+	
+	if _comparing_version != null:
+		_chart.set_window(_secondary_chart.get_window())
+
+
+func _on_ReferenceCheckbox_toggled(button_pressed):
+	if _current_version == null:
+		return
+	if button_pressed:
+		_set_comparing_version(_current_version)
+	else:
+		_set_comparing_version(null)
+
+
+func _set_comparing_version(version):
+	if version != null:
+		_secondary_label.text = version
+		_secondary_chart.show()
+		_secondary_chart.set_data(_chart.get_data())
+		_secondary_chart.scale_to_fit()
+		_chart.set_window(_secondary_chart.get_window())
+	else:
+		_secondary_label.text = ""
+		_secondary_chart.hide()
+	_comparing_version = version
