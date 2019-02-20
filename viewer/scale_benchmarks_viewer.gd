@@ -6,16 +6,13 @@ const MODE_DYNAMIC_MEMORY = 2
 
 onready var _benchmark_list = get_node("BenchmarkList")
 onready var _version_list = get_node("HSplitContainer/VersionList")
-onready var _graph_area = get_node("HSplitContainer/VBoxContainer/GraphArea")
+onready var _chart = get_node("HSplitContainer/VBoxContainer/GraphArea/MainGraph")
 onready var _mode_selector = get_node("HSplitContainer/VBoxContainer/GraphSettings/ModeSelector")
 
 var _data = {}
 var _current_benchmark = null
 var _current_version = null
 var _current_mode = MODE_FRAMETIME
-
-var _graph_data = []
-var _graph_xform = Transform2D()
 
 
 func _ready():
@@ -101,38 +98,8 @@ func _update_graph_data():
 		
 		gdata.append(Vector2(x, y))
 	
-	_graph_data = [gdata]
-	
-	_update_graph_xform()
-
-
-func _update_graph_xform():
-	var max_y = 0.001
-	var max_x = 0.001
-	
-	for points in _graph_data:
-		for p in points:
-			max_x = max(max_x, p.x)
-			max_y = max(max_y, p.y)
-	
-	var xscale = _graph_area.rect_size.x / max_x
-	var yscale = _graph_area.rect_size.y / max_y
-	var h = _graph_area.rect_size.y
-	
-	_graph_xform = Transform2D(Vector2(xscale, 0.0), Vector2(0.0, -yscale), Vector2(0, h))
-	
-	_graph_area.update()
-
-
-func _on_GraphArea_draw():
-	var ci = _graph_area
-	var col = Color(1, 1, 0)
-	
-	for points in _graph_data:
-		for i in range(1, len(points)):
-			var p0 = _graph_xform.xform(points[i - 1])
-			var p1 = _graph_xform.xform(points[i])
-			ci.draw_line(p0, p1, col)
+	_chart.set_data(gdata)
+	_chart.scale_to_fit()
 
 
 func _on_ModeSelector_item_selected(ID):

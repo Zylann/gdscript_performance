@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scale_benchmarks_viewer.gd" type="Script" id=1]
+[ext_resource path="res://chart.gd" type="Script" id=2]
 
 [node name="ScaleBenchmarks" type="HSplitContainer" index="0"]
 
@@ -114,6 +115,21 @@ size_flags_vertical = 3
 color = Color( 0.0588235, 0.0588235, 0.0588235, 1 )
 _sections_unfolded = [ "Size Flags" ]
 
+[node name="MainGraph" type="Control" parent="HSplitContainer/VBoxContainer/GraphArea" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 2 )
+line_color = Color( 1, 1, 0, 1 )
+
 [node name="GraphSettings" type="Control" parent="HSplitContainer/VBoxContainer" index="1"]
 
 anchor_left = 0.0
@@ -160,8 +176,6 @@ selected = -1
 [connection signal="item_selected" from="BenchmarkList" to="." method="_on_BenchmarkList_item_selected"]
 
 [connection signal="item_selected" from="HSplitContainer/VersionList" to="." method="_on_VersionList_item_selected"]
-
-[connection signal="draw" from="HSplitContainer/VBoxContainer/GraphArea" to="." method="_on_GraphArea_draw"]
 
 [connection signal="item_selected" from="HSplitContainer/VBoxContainer/GraphSettings/ModeSelector" to="." method="_on_ModeSelector_item_selected"]
 
