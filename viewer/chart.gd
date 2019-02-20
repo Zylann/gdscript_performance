@@ -15,9 +15,9 @@ func set_data(data):
 func scale_to_fit():
 	
 	if len(_data) != 0:
-		var xmin = _data[0].x
+		var xmin = 0.0#_data[0].x
 		var xmax = xmin
-		var ymin = _data[0].y
+		var ymin = 0.0#_data[0].y
 		var ymax = ymin
 	
 		for v in _data:
