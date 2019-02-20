@@ -77,6 +77,9 @@ func _on_VersionList_item_selected(index):
 
 func _update_graph_data():
 	
+	if _current_benchmark == null:
+		return
+	
 	var data
 	for version in _current_benchmark.versions:
 		if version.version == _current_version:
