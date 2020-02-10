@@ -1,6 +1,6 @@
 extends Control
 
-const BAR_WIDTH = 16
+const BAR_WIDTH = 12
 const BAR_SPACING = 1
 
 onready var _test_list = get_node("TestList")
@@ -45,6 +45,8 @@ func load_data(all_versions):
 		var i = _test_list.get_item_count()
 		_test_list.add_item(test.description)
 		_test_list.set_item_metadata(i, test.name)
+	
+	_test_list.sort_items_by_text()
 
 
 func _on_TestList_item_selected(index):
