@@ -5,204 +5,81 @@
 [ext_resource path="res://scale_benchmark_viewer.tscn" type="PackedScene" id=3]
 
 [node name="Node" type="Node"]
-
 script = ExtResource( 1 )
 
-[node name="Panel" type="Panel" parent="." index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="TabContainer" type="TabContainer" parent="Panel" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="TabContainer" type="TabContainer" parent="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -8.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-tab_align = 1
-tabs_visible = true
-_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="MicroBenchmarks" type="HSplitContainer" parent="Panel/TabContainer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="MicroBenchmarks" type="HSplitContainer" parent="Panel/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-split_offset = 0
-collapsed = false
-dragger_visibility = 0
 script = ExtResource( 2 )
-_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="TestList" type="ItemList" parent="Panel/TabContainer/MicroBenchmarks" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="TestList" type="ItemList" parent="Panel/TabContainer/MicroBenchmarks"]
 margin_right = 300.0
 margin_bottom = 548.0
 rect_min_size = Vector2( 300, 100 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-items = [  ]
-select_mode = 0
-allow_reselect = false
-icon_mode = 1
-fixed_icon_size = Vector2( 0, 0 )
-_sections_unfolded = [ "Rect", "Size Flags" ]
 
-[node name="RightPane" type="Control" parent="Panel/TabContainer/MicroBenchmarks" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="RightPane" type="Control" parent="Panel/TabContainer/MicroBenchmarks"]
 margin_left = 312.0
 margin_right = 1176.0
 margin_bottom = 548.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="GraphArea" type="ColorRect" parent="Panel/TabContainer/MicroBenchmarks/RightPane" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="GraphArea" type="ColorRect" parent="Panel/TabContainer/MicroBenchmarks/RightPane"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -32.0
-rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 color = Color( 0.0625, 0.0625, 0.0625, 1 )
-_sections_unfolded = [ "Anchor", "Margin", "Rect" ]
 
-[node name="GraphBottom" type="Control" parent="Panel/TabContainer/MicroBenchmarks/RightPane" index="1"]
-
-anchor_left = 0.0
+[node name="GraphBottom" type="Control" parent="Panel/TabContainer/MicroBenchmarks/RightPane"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -28.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="ZoomSlider" type="HSlider" parent="Panel/TabContainer/MicroBenchmarks/RightPane/GraphBottom" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
+[node name="ZoomSlider" type="HSlider" parent="Panel/TabContainer/MicroBenchmarks/RightPane/GraphBottom"]
 anchor_bottom = 1.0
 margin_right = 200.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 0
 min_value = 1.0
 max_value = 1500.0
 step = 0.02
-page = 0.0
 value = 20.0
 exp_edit = true
-rounded = false
-editable = true
-tick_count = 0
-ticks_on_borders = false
-focus_mode = 2
-_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="ScaleBenchmarks" parent="Panel/TabContainer" index="1" instance=ExtResource( 3 )]
-
+[node name="ScaleBenchmarks" parent="Panel/TabContainer" instance=ExtResource( 3 )]
 visible = false
 margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="Loading" type="ColorRect" parent="Panel" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="Loading" type="ColorRect" parent="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 color = Color( 0, 0, 0, 0.525765 )
-_sections_unfolded = [ "Mouse" ]
 
-[node name="ProgressPanel" type="Panel" parent="Panel/Loading" index="0"]
-
-anchor_left = 0.0
+[node name="ProgressPanel" type="Panel" parent="Panel/Loading"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -22.0
 margin_bottom = 20.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Panel/Loading/ProgressPanel" index="0"]
-
-anchor_left = 0.0
+[node name="ProgressBar" type="ProgressBar" parent="Panel/Loading/ProgressPanel"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -210,24 +87,6 @@ margin_left = 100.0
 margin_top = -8.0
 margin_right = -100.0
 margin_bottom = 8.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 0
-min_value = 0.0
-max_value = 100.0
 step = 1.0
-page = 0.0
-value = 0.0
-exp_edit = false
-rounded = false
-percent_visible = true
-_sections_unfolded = [ "Margin" ]
-
 [connection signal="item_selected" from="Panel/TabContainer/MicroBenchmarks/TestList" to="Panel/TabContainer/MicroBenchmarks" method="_on_TestList_item_selected"]
-
 [connection signal="value_changed" from="Panel/TabContainer/MicroBenchmarks/RightPane/GraphBottom/ZoomSlider" to="Panel/TabContainer/MicroBenchmarks" method="_on_ZoomSlider_value_changed"]
-
-
