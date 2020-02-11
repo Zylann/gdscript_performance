@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scale_benchmarks/node_spam_with_process/node_spam_with_process.gd" type="Script" id=1]
+
+
+[node name="Node" type="Node" index="0"]
+
+script = ExtResource( 1 )
+
+

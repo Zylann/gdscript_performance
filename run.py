@@ -91,7 +91,22 @@ VERSIONS = [
     # { "v": [3, 1, 0], "x": "Godot_v3.1-rc3_win64" },
     # { "v": [3, 1, 0], "x": "Godot_v3.1-stable_win64" },
     # { "v": [3, 1, 1], "x": "Godot_v3.1.1-stable_win64" },
-    { "v": [3, 1, 2], "x": "Godot_v3.1.2-stable_win64" },
+    # { "v": [3, 1, 2], "x": "Godot_v3.1.2-stable_win64" },
+
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-alpha1_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-alpha2_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-alpha3_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-beta1_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-beta2_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-beta3_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-beta4_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-beta5_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-beta6_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-rc1_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-rc2_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-rc3_win64" },
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-rc4_win64" },
+    { "v": [3, 2, 0], "x": "Godot_v3.2-stable_win64" }
 ]
 
 
@@ -101,7 +116,7 @@ def main():
         return
 
     min_version = [1, 1]
-    max_version = [3, 1]
+    max_version = [3, 2]
 
     min_version = pad_version(min_version)
     max_version = pad_version(max_version)
@@ -173,7 +188,7 @@ def get_project_dir_name(godot_version):
 
     if godot_version[0] >= 3 and godot_version[1] > 0:
         # Versions after 3 became forward-compatible only,
-        # so I can't keep the same project for a minor versions anymore
+        # so I can't keep the same project for minor versions anymore
         d += str(godot_version[1])
 
     return d
