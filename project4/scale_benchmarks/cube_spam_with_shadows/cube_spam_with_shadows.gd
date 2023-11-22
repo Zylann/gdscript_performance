@@ -13,9 +13,9 @@ func get_metric():
 
 
 func process(delta):
-	var mesh = CubeMesh.new()
+	var mesh = BoxMesh.new()
 	for i in range(0, 100):
-		var mi = MeshInstance.new()
+		var mi = MeshInstance3D.new()
 		mi.mesh = mesh
-		mi.set_translation(Vector3(rand_range(-10, 10), rand_range(-10, 10), rand_range(-10, 10)))
+		mi.position = Vector3(randf_range(-10, 10), randf_range(-10, 10), randf_range(-10, 10))
 		add_child(mi)
