@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnqqswuf0rnyi"]
+
+[ext_resource type="Script" path="res://scale_benchmarks/cube_spam_blank_environment/cube_spam_blank_environment.gd" id="1"]
+
+[sub_resource type="Environment" id="Environment_xnpr1"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xnpr1")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+current = true
+fov = 70.0
+far = 100.0

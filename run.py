@@ -4,7 +4,9 @@ import shutil
 import json
 import platform
 
+# Directory under which are all the Godot Engine executables
 GODOT_BINARIES_FOLDER = "D:/PROJETS/INFO/GODOT/bin"
+
 LAST_RESULTS_FILE = "results/last_results.json"
 
 # Higher value increases precision of micro benchmarks but makes them slower to complete
@@ -106,7 +108,9 @@ VERSIONS = [
     # { "v": [3, 2, 0], "x": "Godot_v3.2-rc2_win64" },
     # { "v": [3, 2, 0], "x": "Godot_v3.2-rc3_win64" },
     # { "v": [3, 2, 0], "x": "Godot_v3.2-rc4_win64" },
-    { "v": [3, 2, 0], "x": "Godot_v3.2-stable_win64" }
+    # { "v": [3, 2, 0], "x": "Godot_v3.2-stable_win64" },
+
+    { "v": [4, 0, 0], "x": "Godot_v4.0-stable_win64" }
 ]
 
 
@@ -116,7 +120,7 @@ def main():
         return
 
     min_version = [1, 1]
-    max_version = [3, 2]
+    max_version = [4, 0]
 
     min_version = pad_version(min_version)
     max_version = pad_version(max_version)

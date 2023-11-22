@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://oguot8h1cbod"]
+
+[sub_resource type="SphereShape3D" id="1"]
+
+[sub_resource type="SphereMesh" id="2"]
+radial_segments = 8
+rings = 4
+
+[node name="SphereBody" type="RigidBody3D"]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("1")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("2")

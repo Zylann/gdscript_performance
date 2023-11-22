@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://clqsa3brgp8ey"]
+
+[ext_resource type="Texture2D" uid="uid://bw4x8rc5ag3x0" path="res://scale_benchmarks/bunnymark/bunny.png" id="1"]
+[ext_resource type="Script" path="res://scale_benchmarks/bunnymark/bunny.gd" id="2"]
+
+[node name="Bunny" type="Sprite2D"]
+texture = ExtResource("1")
+script = ExtResource("2")

@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://cb7qkn6ujv424"]
+
+[ext_resource type="Script" path="res://scale_benchmarks/physics_spheres/physics_spheres.gd" id="1"]
+
+[sub_resource type="WorldBoundaryShape3D" id="1"]
+
+[sub_resource type="PlaneMesh" id="2"]
+size = Vector2(60, 60)
+
+[sub_resource type="WorldBoundaryShape3D" id="3"]
+plane = Plane(1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="4"]
+plane = Plane(-1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="5"]
+plane = Plane(0, 0, 1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="6"]
+plane = Plane(0, 0, -1, 0)
+
+[node name="Node" type="Node"]
+script = ExtResource("1")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("1")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="Ground"]
+visible = false
+mesh = SubResource("2")
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.86151, 0.427692, -0.273642, 0, 0.53894, 0.842344, 0.50774, -0.725688, 0.464303, 0, 0, 31.5838)
+
+[node name="Wall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 10, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Wall"]
+shape = SubResource("3")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 10, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("4")
+
+[node name="Wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -30)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("5")
+
+[node name="Wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 30)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Wall4"]
+shape = SubResource("6")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.511267, -0.859422, 0, 0.859422, 0.511267, 1, 2.23482e-08, -3.75665e-08, -60.3687, 53.4798, -0.681635)
