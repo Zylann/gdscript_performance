@@ -2,31 +2,34 @@ extends Node
 
 const RESULTS_FOLDER = "../results"
 
+const ScaleBenchmarksViewer = preload("res://scale_benchmarks_viewer.gd")
+const MicroBenchmarksViewer = preload("res://micro_benchmarks_viewer.gd")
+const Util = preload("./util.gd")
 
-onready var _micro_benchmarks_viewer = get_node("Panel/TabContainer/MicroBenchmarks")
-onready var _scale_benchmarks_viewer = get_node("Panel/TabContainer/ScaleBenchmarks")
-onready var _loading_panel = get_node("Panel/Loading")
-onready var _loading_progress_bar = get_node("Panel/Loading/ProgressPanel/ProgressBar")
+@onready var _micro_benchmarks_viewer : MicroBenchmarksViewer = $Panel/TabContainer/MicroBenchmarks
+@onready var _scale_benchmarks_viewer : ScaleBenchmarksViewer = $Panel/TabContainer/ScaleBenchmarks
+@onready var _loading_panel : Control = $Panel/Loading
+@onready var _loading_progress_bar : ProgressBar = $Panel/Loading/ProgressPanel/ProgressBar
 
 
 func _ready():
 	_loading_panel.show()
 	_loading_progress_bar.ratio = 0
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
 	
-	var filenames = get_file_list(RESULTS_FOLDER, "json")
-	var all_versions = {}
+	var filenames := Util.get_file_list(RESULTS_FOLDER, PackedStringArray(["json"]))
+	var all_versions := {}
 	
-	for i in len(filenames):
-		var filename = filenames[i]
+	for i in filenames.size():
+		var filename := filenames[i]
 		
-		var fpath = RESULTS_FOLDER + "/" + filename
+		var fpath := RESULTS_FOLDER + "/" + filename
 		var res = load_json_file(fpath)
 		if res == null:
 			continue
 
 		_loading_progress_bar.ratio = float(i) / float(len(filenames))
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
 		
 		all_versions[filename] = res
 	
@@ -36,40 +39,20 @@ func _ready():
 	_loading_panel.hide()
 	
 
-static func load_json_file(fpath):
-	var f = File.new()
-	var code = f.open(fpath, File.READ)
-	if code != OK:
-		print("Cannot open ", fpath, ", code=", code)
+static func load_json_file(fpath: String):
+	var f := FileAccess.open(fpath, FileAccess.READ)
+	if f == null:
+		var code := FileAccess.get_open_error()
+		push_error("Cannot open ", fpath, ", code=", code)
 		return null
-	var contents = f.get_as_text()
-	f.close()
-	var res = JSON.parse(contents)
-	if res.error != OK:
-		print("Cannot parse ", fpath, ", code=", res.error)
+	var contents := f.get_as_text()
+	f = null
+	
+	var test_json_conv := JSON.new()
+	var err := test_json_conv.parse(contents)
+	if err != OK:
+		print("Cannot parse ", fpath, ": ", test_json_conv.get_error_message())
 		return null
-	return res.result
+	return test_json_conv.data
 
-
-static func get_file_list(dir_path, exts):
-	if typeof(exts) == TYPE_STRING:
-		exts = [exts]
-	var dir = Directory.new()
-	var open_code = dir.open(dir_path)
-	if open_code != 0:
-		print("Cannot open directory! Code: " + str(open_code))
-		return null
-	var list = []
-	dir.list_dir_begin()
-	for i in range(0, 1000):
-		var file = dir.get_next()
-		if file == "":
-			break
-		if not dir.current_is_dir():
-			var file_ext = file.get_extension()
-			for ext in exts:
-				if ext == file_ext:
-					list.append(file)
-					break
-	return list
 
